@@ -1,0 +1,2 @@
+class DNAYaccError(Exception):
+	pass
