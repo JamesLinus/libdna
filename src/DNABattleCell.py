@@ -4,7 +4,7 @@ from DNASuitEdge import DNASuitEdge
 
 class DNABattleCell(DNASuitEdge):
 	def __init__(self, width=0.0, height=0.0, pos=Point3(0, 0, 0)):
-		DNASuitEdge.__init__(pos)
+		DNASuitEdge.__init__(self, pos)
 		self.width = width
 		self.height = height
 		self.pos = pos

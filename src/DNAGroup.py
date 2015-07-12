@@ -5,7 +5,7 @@ class DNAGroup():
 	def __init__(self, name):
 		self.index = -1
 		self.name = name
-		self.groups = []
+		self.children = []
 		self.parent = NodePath('parent')
 	
 	def traverse(self, parent, store): #NodePath, DNAStorage
@@ -14,23 +14,32 @@ class DNAGroup():
 	def topLevelTraverse(self, parent, store): #NodePath, DNAStorage
 		self.parent = parent
 	
-	def add(self, group):
-		self.groups.append(group)
+	def add(self, child):
+		self.children += [child]
 	
-	def remove(self, group):
-		self.groups[group] = None
+	def remove(self, child):
+		self.children - [child]
 	
 	def at(self, index):
-		self.index = index
+		return self.children[index]
 	
 	def current(self):
 		return self.index
 	
 	def getNumChildren(self): #TODO
 		return len(self.groups)
+
+	def setParent(self, parentGroup):
+		self.parent = parentGroup
 	
 	def getParent(self):
 		return self.parent
 	
 	def setName(self):
-		return self.name
+		return self.name  
+
+	def traverse(self, nodePath, dnaStorage):
+		node = PandaNode(self.name)
+		nodePath = nodePath.attachNewNode(node, 0)
+		for child in self.children:
+			child.traverse(nodePath, dnaStorage)

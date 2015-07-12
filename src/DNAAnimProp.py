@@ -1,11 +1,11 @@
 from pandac.PandaModules import *
 from panda3d.core import *
-from DNAInteractiveProp import DNAInteractiveProp
+from DNAProp import DNAProp
 
-class DNAAnimBuilding(DNAInteractiveProp):
+class DNAAnimProp(DNAProp):
 	def __init__(self):
-		DNAInteractiveProp.__init__(self)
-		self.anim = ''
+		DNAProp.__init__(self)
+		anim = ''
 
 	def setAnim(self, anim):
 		self.anim = anim

@@ -5,12 +5,12 @@ from DNASuitEdge import DNASuitEdge
 from DNABattleCell import DNABattleCell
 
 class DNAVisGroup(DNAGroup, DNASuitEdge, DNABattleCell):
-	def __init__(self, group, name):
+	def __init__(self, group=None, name=''):
 		DNAGroup.__init__(self, name)
 		DNASuitEdge.__init__(self, pos=Point3(0, 0, 0))
 		DNABattleCell.__init__(self)
 		self.visibleGroups = []
-		self.visGroup = visGroup
+		self.visGroup = None
 		self.cells = []
 	
 	def addVisible(self, visGroup):

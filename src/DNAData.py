@@ -1,15 +1,21 @@
 from DNAYaccError import DNAYaccError
-from DNAUtil import *
 from ply import lex, yacc
+from DNAGroup import DNAGroup
+from panda3d.core import *
 
-class DNAData:
+class DNAData(DNAGroup):
+	name = 'DNAData'
+
 	def __init__(self):
-		self.dnaFileName = ''
+		DNAGroup.__init__(self, self.name)
+		node = PandaNode('dna')
+		self.nodePath = NodePath(node)
+		self.Filename = ''
 		self.store = None
 		self.data = self
 
-	def setDnaFilename(self, dnaFileName):
-		self.dnaFileName = dnaFileName
+	def setDnaFilename(self, Filename):
+		self.Filename = Filename
 
 	def getDnaFilename(self):
 		return self.dnaFileName
@@ -23,10 +29,17 @@ class DNAData:
 	def getData(self):
 		return self.data
 
+	def buildGraph(self):
+		self.traverse(self.nodePath, self.getDnaStorage())
+		if self.nodePath.getChild(0).getNumChildren() == 0:
+			return None
+		return self.nodePath.getChild(0).getChild(0)
+
 	def readDNA(self, file):
-		parser = yacc.yacc(debug=0, optimize=0)
-		parser.dnaData = self
+		from DNAUtil import *
+		parser = yacc.yacc()
+		parser.dnaData = DNAGroup(name='DNAGroup')
 		parser.parentGroup = parser.dnaData
 		parser.dnaStore = self.getDnaStorage()
 		parser.nodePath = None
-		parser.parse(stream.read())
+		parser.parse(file.read())

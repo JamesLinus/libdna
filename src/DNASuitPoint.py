@@ -3,8 +3,10 @@ from panda3d.core import *
 from DNAGroup import DNAGroup
 
 class DNASuitPoint(DNAGroup):
+	node = 'DNASuitPoint'
+
 	def __init__(self, index=-1, type=0, pos=Point3(0, 0, 0)):
-		DNAGroup.__init__(self, name='DNASuitPoint')
+		DNAGroup.__init__(self, self.node)
 		self.index = index
 		self.type = type
 		self.pos = pos
